@@ -10,7 +10,9 @@ export class GitHubService {
 	private _key = '';
 
 	getRepos (username) {
-		return this.http.get(this._url + '/users/' + username + '/repos' + '?access_token=' + this._key)
+		let url = this._url + '/users/' + username + '/repos';
+		if (this._key.length > 0) url += '?access_token=' + this._key;
+		return this.http.get(url)
 			.map(res => res.json())
 	}
 }

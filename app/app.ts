@@ -1,15 +1,18 @@
 import 'es6-shim';
 import {App, Platform} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
-import {HomePage} from './pages/home/home';
+import {HTTP_PROVIDERS} from 'angular2/http';
+import {GitHubService} from './github.service';
+import {RepoList} from './pages/repo-list/repo-list';
 
 
 @App({
   template: '<ion-nav [root]="rootPage"></ion-nav>',
+  providers: [HTTP_PROVIDERS, GitHubService],
   config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })
 export class MyApp {
-  rootPage: any = HomePage;
+  rootPage: any = RepoList;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {

@@ -6,6 +6,7 @@ import {GitHubService} from '../../github.service';
 	templateUrl: './build/pages/repo-list/repo-list.html'
 })
 export class RepoList implements OnInit {
+	username: string = 'neolwc';
 	repos: any;
 
 	constructor (private _githubService: GitHubService) {}
@@ -16,6 +17,6 @@ export class RepoList implements OnInit {
 	}
 
 	ngOnInit () {
-		this.getRepos('neolwc');
+		this.getRepos(this.username);
 	}
 }

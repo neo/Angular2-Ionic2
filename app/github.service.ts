@@ -15,4 +15,11 @@ export class GitHubService {
 		return this.http.get(url)
 			.map(res => res.json())
 	}
+
+	searchUsers (q) {
+		let url = `${this._url}/search/users?q=${q}`;
+		if (this._key.length > 0) url += `&access_token=${this._key}`;
+		return this.http.get(url)
+			.map(res => res.json())
+	}
 }

@@ -1,11 +1,10 @@
 import {Page} from 'ionic-angular';
-import {OnInit} from 'angular2/core';
 import {GitHubService} from '../../github.service';
 
 @Page({
 	templateUrl: './build/pages/repo-list/repo-list.html'
 })
-export class RepoList implements OnInit {
+export class RepoList {
 	username: string = 'neolwc';
 	repos: any;
 
@@ -16,7 +15,7 @@ export class RepoList implements OnInit {
 			.subscribe(repos => this.repos = repos);
 	}
 
-	ngOnInit () {
+	onPageDidEnter () {
 		this.getRepos(this.username);
 	}
 }

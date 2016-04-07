@@ -1,14 +1,15 @@
-import {Page} from 'ionic-angular';
+import {Page, NavParams} from 'ionic-angular';
 import {GitHubService} from '../../github.service';
 
 @Page({
 	templateUrl: './build/pages/repo-list/repo-list.html'
 })
 export class RepoList {
-	username: string = 'neolwc';
+	username: string;
 	repos: any;
 
-	constructor (private _githubService: GitHubService) {}
+	constructor (private _githubService: GitHubService,
+		private _params: NavParams) {}
 
 	getRepos (username) {
 		this._githubService.getRepos(username)
@@ -16,6 +17,7 @@ export class RepoList {
 	}
 
 	onPageDidEnter () {
+		this.username = this._params.get('username');
 		this.getRepos(this.username);
 	}
 }

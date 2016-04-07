@@ -3,7 +3,7 @@ import {App, Platform} from 'ionic-angular';
 import {StatusBar} from 'ionic-native';
 import {HTTP_PROVIDERS} from 'angular2/http';
 import {GitHubService} from './github.service';
-import {RepoList} from './pages/repo-list/repo-list';
+import {SearchUsers} from './pages/search-users/search-users';
 
 
 @App({
@@ -12,7 +12,7 @@ import {RepoList} from './pages/repo-list/repo-list';
   config: {} // http://ionicframework.com/docs/v2/api/config/Config/
 })
 export class MyApp {
-  rootPage: any = RepoList;
+  rootPage: any = SearchUsers;
 
   constructor(platform: Platform) {
     platform.ready().then(() => {

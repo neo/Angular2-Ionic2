@@ -1,5 +1,6 @@
-import {Page} from 'ionic-angular';
+import {Page, NavController} from 'ionic-angular';
 import {GitHubService} from '../../github.service';
+import {RepoList} from '../repo-list/repo-list';
 
 @Page({
 	templateUrl: './build/pages/search-users/search-users.html'
@@ -11,7 +12,8 @@ export class SearchUsers {
 	private _nomatch: boolean;
 	private _timeout;
 
-	constructor (private _githubService: GitHubService) {}
+	constructor (private _githubService: GitHubService,
+		private _nav: NavController) {}
 
 	search (input) {
 		if (input.length > 0) this._githubService.searchUsers(input)
@@ -29,5 +31,7 @@ export class SearchUsers {
 		this._timeout = setTimeout(this.search.bind(this, input), 1000);
 	}
 
-	select (login) {}
+	select (login) {
+		this._nav.push(RepoList, {username: login});
+	}
 }

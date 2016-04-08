@@ -13,13 +13,13 @@ export class GitHubService {
 		let url = `${this._url}/users/${username}/repos`;
 		if (this._key.length > 0) url += `?access_token=${this._key}`;
 		return this.http.get(url)
-			.map(res => res.json())
+			.map(res => res.json());
 	}
 
 	searchUsers (q) {
 		let url = `${this._url}/search/users?q=${q}`;
 		if (this._key.length > 0) url += `&access_token=${this._key}`;
 		return this.http.get(url)
-			.map(res => res.json())
+			.map(res => res.json());
 	}
 }

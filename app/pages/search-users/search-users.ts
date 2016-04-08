@@ -34,4 +34,12 @@ export class SearchUsers {
 	select (login) {
 		this._nav.push(RepoList, {username: login});
 	}
+
+	scroll(infiniteScroll) {
+		this._githubService.nextPage()
+			.subscribe(data => {
+				this.users = this.users.concat(data.items);
+				infiniteScroll.complete();
+			});
+	}
 }

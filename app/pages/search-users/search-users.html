@@ -16,4 +16,7 @@
 			<h2>{{user.login}}</h2>
 		</ion-item>
 	</ion-list>
+	<ion-infinite-scroll (infinite)="scroll($event)">
+		<ion-infinite-scroll-content></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
 </ion-content>

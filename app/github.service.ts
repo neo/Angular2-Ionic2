@@ -1,7 +1,8 @@
 import {Injectable} from 'angular2/core';
 import {Http, Response} from 'angular2/http';
-import 'rxjs';
 import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/do';
 
 @Injectable()
 export class GitHubService {

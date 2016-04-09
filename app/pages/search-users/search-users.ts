@@ -36,7 +36,7 @@ export class SearchUsers {
 	}
 
 	scroll(infiniteScroll) {
-		this._githubService.nextPage()
+		this._githubService.nextPage('users')
 			.subscribe(data => {
 				this.users = this.users.concat(data.items);
 				infiniteScroll.complete();

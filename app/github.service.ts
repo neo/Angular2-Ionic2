@@ -8,7 +8,7 @@ export class GitHubService {
 
 	private _url = 'https://api.github.com';
 	private _key = '';
-	private _link;
+	private _link = {};
 
 	getRepos (username) {
 		let url = `${this._url}/users/${username}/repos`;
@@ -21,21 +21,21 @@ export class GitHubService {
 		let url = `${this._url}/search/users?q=${q}`;
 		if (this._key.length > 0) url += `&access_token=${this._key}`;
 		return this.http.get(url)
-			.do(res => this._link = res.headers.get('Link'))
+			.do(res => this._link['users'] = res.headers.get('Link'))
 			.map(res => res.json());
 	}
 
-	linkTo(link) {
-		let links = this._link.split(', ');
+	linkTo(name, prop) {
+		let links = this._link[name].split(', ');
 		let obj = {};
 		links.forEach(link => obj[/rel="(next|last|first|prev)"/.exec(link)[1]] = /<(http\S*)>/.exec(link)[1]);
-		return obj[link];
+		return obj[prop];
 	}
 
-	nextPage() {
-		let url = this.linkTo('next');
+	nextPage(name) {
+		let url = this.linkTo(name, 'next');
 		if (url) return this.http.get(url)
-			.do(res => this._link = res.headers.get('Link'))
+			.do(res => this._link[name] = res.headers.get('Link'))
 			.map(res => res.json());
 	}
 }

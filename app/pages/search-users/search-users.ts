@@ -11,6 +11,8 @@ export class SearchUsers {
 
 	private _nomatch: boolean;
 	private _timeout;
+	private _end: boolean;
+	private infiniteScroll;
 
 	constructor (private _githubService: GitHubService,
 		private _nav: NavController) {}
@@ -22,9 +24,11 @@ export class SearchUsers {
 				this.users = data.items;
 			});
 		else this.users = [];
+		if (this.infiniteScroll) this.infiniteScroll._highestY = 0;
 	}
 
 	change (input) {
+		this._end = false;
 		this.input = input;
 		this._nomatch = false;
 		clearTimeout(this._timeout);
@@ -36,9 +40,13 @@ export class SearchUsers {
 	}
 
 	scroll(infiniteScroll) {
+		if (!this.infiniteScroll) this.infiniteScroll = infiniteScroll;
 		this._githubService.nextPage('users')
 			.subscribe(data => {
 				this.users = this.users.concat(data.items);
+				infiniteScroll.complete();
+			}, error => {
+				if (error.end) this._end = true;
 				infiniteScroll.complete();
 			});
 	}

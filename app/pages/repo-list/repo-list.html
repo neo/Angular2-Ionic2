@@ -7,6 +7,7 @@
 			<h2>{{repo.name}}</h2>
 			<p>{{repo.description}}</p>
 		</ion-item>
+		<ion-item *ngIf="_end"><p>This is the end of the list.</p></ion-item>
 	</ion-list>
 	<ion-infinite-scroll (infinite)="scroll($event)">
 		<ion-infinite-scroll-content></ion-infinite-scroll-content>

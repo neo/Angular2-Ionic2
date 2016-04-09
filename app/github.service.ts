@@ -1,6 +1,7 @@
 import {Injectable} from 'angular2/core';
 import {Http, Response} from 'angular2/http';
 import 'rxjs';
+import {Observable} from 'rxjs/Observable';
 
 @Injectable()
 export class GitHubService {
@@ -27,6 +28,7 @@ export class GitHubService {
 	}
 
 	linkTo(name, prop) {
+		if (!this._link[name]) return;
 		let links = this._link[name].split(', ');
 		let obj = {};
 		links.forEach(link => obj[/rel="(next|last|first|prev)"/.exec(link)[1]] = /<(http\S*)>/.exec(link)[1]);
@@ -38,5 +40,6 @@ export class GitHubService {
 		if (url) return this.http.get(url)
 			.do(res => this._link[name] = res.headers.get('Link'))
 			.map(res => res.json());
+		else return Observable.throw({"end": true});
 	}
 }

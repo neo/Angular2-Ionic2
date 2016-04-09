@@ -14,6 +14,7 @@ export class GitHubService {
 		let url = `${this._url}/users/${username}/repos`;
 		if (this._key.length > 0) url += `?access_token=${this._key}`;
 		return this.http.get(url)
+			.do(res => this._link['repos'] = res.headers.get('Link'))
 			.map(res => res.json());
 	}
 

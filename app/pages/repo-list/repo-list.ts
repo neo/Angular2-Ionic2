@@ -20,4 +20,12 @@ export class RepoList {
 		this.username = this._params.get('username');
 		this.getRepos(this.username);
 	}
+
+	scroll(infiniteScroll) {
+		this._githubService.nextPage('repos')
+			.subscribe(data => {
+				this.repos = this.repos.concat(data);
+				infiniteScroll.complete();
+			});
+	}
 }

@@ -1,0 +1,23 @@
+<ion-navbar *navbar hideBackButton class="show-navbar">
+	<ion-title>Search Users</ion-title>
+</ion-navbar>
+<ion-toolbar>
+	<div padding>
+		<ion-input [ngModel]="input" (ngModelChange)="change($event)" type="text" placeholder="Search" autofocus></ion-input>
+	</div>
+</ion-toolbar>
+<ion-content class="has-header">
+	<ion-list>
+		<ion-item *ngIf="_nomatch">We couldn’t find any users matching {{input}}</ion-item>
+		<ion-item *ngFor="#user of users" (click)="select(user.login)">
+			<ion-avatar item-left>
+				<img [src]="user.avatar_url">
+			</ion-avatar>
+			<h2>{{user.login}}</h2>
+		</ion-item>
+		<ion-item *ngIf="_end"><p>This is the end of the list.</p></ion-item>
+	</ion-list>
+	<ion-infinite-scroll (infinite)="scroll($event)">
+		<ion-infinite-scroll-content></ion-infinite-scroll-content>
+	</ion-infinite-scroll>
+</ion-content>

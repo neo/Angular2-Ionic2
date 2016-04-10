@@ -23,11 +23,11 @@ export class SearchUsers {
 				this._nomatch = (data.total_count === 0) ? true : false;
 				this.users = data.items;
 			});
-		else this.users = [];
 		if (this.infiniteScroll) this.infiniteScroll._highestY = 0;
 	}
 
 	change (input) {
+		this.users = [];
 		this._end = false;
 		this.input = input;
 		this._nomatch = false;
